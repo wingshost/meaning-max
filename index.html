@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeaningMax - Platform Mining & Cloud Compute</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #090d16, #121c2e);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        /* Navbar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 30px;
+            background: rgba(9, 13, 22, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            color: #38bdf8;
+        }
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .btn-signin {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: #ffffff;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+        .btn-signin:hover {
+            border-color: #38bdf8;
+            color: #38bdf8;
+        }
+        .btn-getstarted {
+            background: linear-gradient(135deg, #38bdf8, #2563eb);
+            border: none;
+            color: #ffffff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            transition: 0.3s;
+        }
+        .btn-getstarted:hover {
+            opacity: 0.9;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 50px 20px 30px;
+        }
+        .hero h1 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #ffffff;
+        }
+        .hero h1 span {
+            color: #38bdf8;
+        }
+        .planet-banner {
+            width: 100%;
+            max-width: 320px;
+            margin: 0 auto 30px;
+            display: block;
+            filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.4));
+        }
+
+        /* Features Section */
+        .features {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px 50px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .feature-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 20px;
+            border-radius: 16px;
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+        .feature-card:hover {
+            border-color: rgba(56, 189, 248, 0.3);
+            transform: translateY(-2px);
+        }
+        .feature-card h3 {
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: #ffffff;
+        }
+        .feature-card p {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        /* Modal Overlay for Login/Register */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+        .modal-content {
+            background: #1e293b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 380px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            position: relative;
+        }
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 20px;
+            color: #94a3b8;
+            cursor: pointer;
+        }
+        .close-btn:hover {
+            color: #fff;
+        }
+        .modal-content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #38bdf8;
+            font-size: 22px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #cbd5e1;
+        }
+        input {
+            width: 100%;
+            padding: 11px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #0f172a;
+            color: #fff;
+            font-size: 15px;
+        }
+        input:focus {
+            outline: none;
+            border-color: #38bdf8;
+        }
+        .btn-submit {
+            width: 100%;
+            padding: 12px;
+            background: #38bdf8;
+            border: none;
+            border-radius: 8px;
+            color: #0f172a;
+            font-weight: bold;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: 0.3s;
+        }
+        .btn-submit:hover {
+            background: #0ea5e9;
+        }
+        .switch-auth {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+        .switch-auth span {
+            color: #38bdf8;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Floating WhatsApp Button */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #22c55e;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(34, 197, 94, 0.4);
+            cursor: pointer;
+            z-index: 99;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">MEANINGMAX</div>
+        <div class="nav-buttons">
+            <button class="btn-signin" onclick="openModal('login')">Sign In</button>
+            <button class="btn-getstarted" onclick="openModal('register')">Get Started</button>
+        </div>
+    </nav>
+
+    <!-- HERO / UTAMA -->
+    <div class="hero">
+        <h1>Welcome To <span>MeaningMax</span></h1>
+        <!-- Ilustrasi Planet / Grafis -->
+        <svg class="planet-banner" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="50" fill="#6366f1" opacity="0.6"/>
+            <circle cx="100" cy="100" r="35" fill="#38bdf8"/>
+            <ellipse cx="100" cy="100" rx="80" ry="25" fill="none" stroke="#38bdf8" stroke-width="3" transform="rotate(-25 100 100)"/>
+            <circle cx="50" cy="70" r="8" fill="#34d399"/>
+            <circle cx="150" cy="130" r="6" fill="#f43f5e"/>
+        </svg>
+    </div>
+
+    <!-- FITUR / PENJELASAN -->
+    <div class="features">
+        <div class="feature-card">
+            <h3>🪐 Sistem Mining</h3>
+            <p>Server kami menyalakan daya komputasi secara real-time.</p>
+        </div>
+        <div class="feature-card">
+            <h3>✨ Ekosistem yang Adil</h3>
+            <p>Alokasi hashrate merata dan transparan untuk setiap pengguna.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🛡️ Keamanan Berlapis</h3>
+            <p>Proteksi DDoS aktif dengan enkripsi tingkat tinggi.</p>
+        </div>
+    </div>
+
+    <!-- WHATSAPP FLOAT BUTTON -->
+    <a href="https://wa.me/" target="_blank" class="whatsapp-float">💬</a>
+
+    <!-- MODAL POPUP LOGIN & REGISTER -->
+    <div id="authModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+
+            <!-- FORM LOGIN (SIGN IN) -->
+            <div id="formLogin">
+                <h2>Sign In</h2>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" placeholder="nama@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Kata Sandi</label>
+                    <input type="password" id="loginPassword" placeholder="••••••••">
+                </div>
+                <button class="btn-submit" onclick="handleLogin()">Masuk</button>
+                <div class="switch-auth">
+                    Belum punya akun? <span onclick="switchModalForm('register')">Daftar sekarang</span>
+                </div>
+            </div>
+
+            <!-- FORM REGISTER (GET STARTED) -->
+            <div id="formRegister" style="display: none;">
+                <h2>Get Started</h2>
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" id="regName" placeholder="Nama Anda">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="regEmail" placeholder="nama@email.com">
+                </div>
+                <div class="form-group">
+                    <label>Kata Sandi</label>
+                    <input type="password" id="regPassword" placeholder="••••••••">
+                </div>
+                <button class="btn-submit" onclick="handleRegister()">Daftar Akun</button>
+                <div class="switch-auth">
+                    Sudah punya akun? <span onclick="switchModalForm('login')">Sign In di sini</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('authModal');
+        const formLogin = document.getElementById('formLogin');
+        const formRegister = document.getElementById('formRegister');
+
+        function openModal(type) {
+            modal.style.display = 'flex';
+            if(type === 'register') {
+                formLogin.style.display = 'none';
+                formRegister.style.display = 'block';
+            } else {
+                formRegister.style.display = 'none';
+                formLogin.style.display = 'block';
+            }
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
+
+        function switchModalForm(type) {
+            if(type === 'register') {
+                formLogin.style.display = 'none';
+                formRegister.style.display = 'block';
+            } else {
+                formRegister.style.display = 'none';
+                formLogin.style.display = 'block';
+            }
+        }
+
+        function handleRegister() {
+            const name = document.getElementById('regName').value;
+            const email = document.getElementById('regEmail').value;
+            const password = document.getElementById('regPassword').value;
+
+            if(!name || !email || !password) {
+                alert('Semua kolom wajib diisi!');
+                return;
+            }
+
+            const userData = { name, email, password };
+            localStorage.setItem('meaningmax_user', JSON.stringify(userData));
+            alert('Pendaftaran berhasil! Silakan Sign In.');
+            switchModalForm('login');
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            const savedUser = JSON.parse(localStorage.getItem('meaningmax_user'));
+
+            if(!savedUser) {
+                alert('Belum ada akun terdaftar. Silakan "Get Started" terlebih dahulu!');
+                return;
+            }
+
+            if(email === savedUser.email && password === savedUser.password) {
+                alert('Login Berhasil! Selamat datang, ' + savedUser.name);
+                closeModal();
+            } else {
+                alert('Email atau kata sandi salah!');
+            }
+        }
+
+        // Tutup modal jika klik di luar kotak
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>s
