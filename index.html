@@ -544,11 +544,11 @@
             margin-bottom: 6px;
         }
         .pay-detail-box .pay-number {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: bold;
             color: #38bdf8;
             font-family: monospace;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
         }
         .qris-mini-img {
             width: 160px;
@@ -836,7 +836,7 @@
                     <div id="qrisBoxContainer" class="qris-mini-img" style="display: block;">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=00020101021126690014COM.SEABANK.WWW0118ID10200384729183703UMI51440014ID.CO.QRIS.WWW0215ID20260000000000303UMI5204541153033605802ID5912MEANINGMAX6007JAKARTA63041A2D" alt="QRIS SeaBank">
                     </div>
-                    <div class="pay-number" id="payNumberDisplay">Nominal: Rp 25.000</div>
+                    <div class="pay-number" id="payNumberDisplay">Total: Rp 25.000</div>
                 </div>
 
                 <button class="btn-submit" onclick="processConfirmPayment()">Saya Sudah Transfer / Membayar</button>
@@ -866,7 +866,7 @@
                 document.getElementById('formWithdraw').style.display = 'block';
             } else if(type === 'upgradeVip') {
                 document.getElementById('formUpgrade').style.display = 'block';
-                updatePaymentDetails(); // Set default payment
+                updatePaymentDetails();
             }
         }
 
@@ -879,7 +879,9 @@
         }
 
         function updatePaymentDetails() {
-            const method = document.getElementById('payMethodSelect').value;
+            const selectEl = document.getElementById('payMethodSelect');
+            if (!selectEl) return;
+            const method = selectEl.value;
             const label = document.getElementById('payInstructionLabel');
             const display = document.getElementById('payNumberDisplay');
             const qrisBox = document.getElementById('qrisBoxContainer');
@@ -891,11 +893,11 @@
             } else if(method === 'dana') {
                 label.innerText = 'Nomor DANA Admin:';
                 qrisBox.style.display = 'none';
-                display.innerText = '0812-3456-7890 (a.n. MeaningMax)';
+                display.innerText = '0812-3456-7890 (Rp 25.000)';
             } else if(method === 'gopay') {
                 label.innerText = 'Nomor GoPay Admin:';
                 qrisBox.style.display = 'none';
-                display.innerText = '0812-3456-7890 (a.n. MeaningMax)';
+                display.innerText = '0812-3456-7890 (Rp 25.000)';
             }
         }
 
