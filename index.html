@@ -23,7 +23,7 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px 30px;
-            background: rgba(9, 13, 22, 0.8);
+            background: rgba(9, 13, 22, 0.85);
             backdrop-filter: blur(10px);
             position: sticky;
             top: 0;
@@ -72,7 +72,7 @@
         .user-profile {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-size: 14px;
         }
         .btn-logout {
@@ -88,47 +88,45 @@
             background: #dc2626;
         }
 
-        /* Hero Section */
+        /* Container Umum */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Hero Section (Sebelum Login) */
         .hero {
             text-align: center;
-            padding: 50px 20px 30px;
+            padding: 40px 20px 20px;
         }
         .hero h1 {
-            font-size: 28px;
-            margin-bottom: 30px;
-            color: #ffffff;
+            font-size: 32px;
+            margin-bottom: 25px;
         }
         .hero h1 span {
             color: #38bdf8;
         }
         .planet-banner {
             width: 100%;
-            max-width: 320px;
-            margin: 0 auto 30px;
+            max-width: 280px;
+            margin: 0 auto 25px;
             display: block;
             filter: drop-shadow(0 0 20px rgba(56, 189, 248, 0.4));
         }
-
-        /* Features Section */
         .features {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 0 20px 50px;
             display: flex;
             flex-direction: column;
             gap: 15px;
+            max-width: 600px;
+            margin: 0 auto;
         }
         .feature-card {
             background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 20px;
+            padding: 18px 20px;
             border-radius: 16px;
             backdrop-filter: blur(5px);
-            transition: 0.3s;
-        }
-        .feature-card:hover {
-            border-color: rgba(56, 189, 248, 0.3);
-            transform: translateY(-2px);
         }
         .feature-card h3 {
             font-size: 16px;
@@ -140,7 +138,123 @@
             color: #94a3b8;
         }
 
-        /* Modal Overlay for Login/Register */
+        /* Dashboard Section (Setelah Login) */
+        .dashboard-wrapper {
+            display: none; /* Disembunyikan secara default */
+        }
+        .server-status-bar {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            padding: 14px 20px;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            font-size: 13px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .server-status-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #34d399;
+        }
+        .dot {
+            width: 10px;
+            height: 10px;
+            background: #34d399;
+            border-radius: 50%;
+            box-shadow: 0 0 8px #34d399;
+        }
+        .server-status-right {
+            display: flex;
+            gap: 15px;
+            color: #94a3b8;
+        }
+        .main-balance-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            position: relative;
+            margin-bottom: 25px;
+            backdrop-filter: blur(10px);
+        }
+        .balance-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 13px;
+            color: #94a3b8;
+        }
+        .badge-trial {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .balance-amount {
+            font-size: 38px;
+            font-weight: bold;
+            color: #ffffff;
+            margin-bottom: 5px;
+        }
+        .balance-idr {
+            color: #38bdf8;
+            font-size: 14px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        @media(max-width: 650px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        .stat-card {
+            background: rgba(30, 41, 59, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 18px;
+            border-radius: 14px;
+            text-align: center;
+        }
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .stat-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffffff;
+        }
+        .upgrade-banner {
+            background: linear-gradient(135deg, #b45309, #d97706);
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(217, 119, 6, 0.3);
+            transition: 0.3s;
+        }
+        .upgrade-banner:hover {
+            opacity: 0.9;
+        }
+
+        /* Modal Popup */
         .modal {
             display: none;
             position: fixed;
@@ -259,12 +373,12 @@
     <nav>
         <div class="logo">MEANINGMAX</div>
         <div class="nav-buttons" id="navButtonsContainer">
-            <!-- Tombol sebelum login -->
+            <!-- Tampilan Guest (Belum Login) -->
             <div id="guestNav" style="display: flex; gap: 10px;">
                 <button class="btn-signin" onclick="openModal('login')">Sign In</button>
                 <button class="btn-getstarted" onclick="openModal('register')">Get Started</button>
             </div>
-            <!-- Tampilan setelah login -->
+            <!-- Tampilan Setelah Login -->
             <div id="userNav" class="user-profile" style="display: none;">
                 <span>Halo, <strong id="navUserName">User</strong></span>
                 <button class="btn-logout" onclick="handleLogout()">Keluar</button>
@@ -272,33 +386,78 @@
         </div>
     </nav>
 
-    <!-- HERO / UTAMA -->
-    <div class="hero">
-        <h1>Welcome To <span>MeaningMax</span></h1>
-        <!-- Ilustrasi Planet / Grafis -->
-        <svg class="planet-banner" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="100" cy="100" r="50" fill="#6366f1" opacity="0.6"/>
-            <circle cx="100" cy="100" r="35" fill="#38bdf8"/>
-            <ellipse cx="100" cy="100" rx="80" ry="25" fill="none" stroke="#38bdf8" stroke-width="3" transform="rotate(-25 100 100)"/>
-            <circle cx="50" cy="70" r="8" fill="#34d399"/>
-            <circle cx="150" cy="130" r="6" fill="#f43f5e"/>
-        </svg>
+    <!-- KONTEN 1: LANDING PAGE (Sebelum Login) -->
+    <div id="landingView" class="container">
+        <div class="hero">
+            <h1>Welcome To <span>MeaningMax</span></h1>
+            <svg class="planet-banner" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="100" cy="100" r="50" fill="#6366f1" opacity="0.6"/>
+                <circle cx="100" cy="100" r="35" fill="#38bdf8"/>
+                <ellipse cx="100" cy="100" rx="80" ry="25" fill="none" stroke="#38bdf8" stroke-width="3" transform="rotate(-25 100 100)"/>
+                <circle cx="50" cy="70" r="8" fill="#34d399"/>
+                <circle cx="150" cy="130" r="6" fill="#f43f5e"/>
+            </svg>
+        </div>
+        <div class="features">
+            <div class="feature-card">
+                <h3>🪐 Sistem Mining</h3>
+                <p>Server kami menyalakan daya komputasi secara real-time.</p>
+            </div>
+            <div class="feature-card">
+                <h3>✨ Ekosistem yang Adil</h3>
+                <p>Alokasi hashrate merata dan transparan untuk setiap pengguna.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🛡️ Keamanan Berlapis</h3>
+                <p>Proteksi DDoS aktif dengan enkripsi tingkat tinggi.</p>
+            </div>
+        </div>
     </div>
 
-    <!-- FITUR / PENJELASAN -->
-    <div class="features">
-        <div class="feature-card">
-            <h3>🪐 Sistem Mining</h3>
-            <p>Server kami menyalakan daya komputasi secara real-time.</p>
+    <!-- KONTEN 2: DASHBOARD MINING (Setelah Login) -->
+    <div id="dashboardView" class="container dashboard-wrapper">
+        <!-- Status Server Node -->
+        <div class="server-status-bar">
+            <div class="server-status-left">
+                <div class="dot"></div>
+                <span>Server Node: Operational — Saldo bertambah otomatis secara real-time</span>
+            </div>
+            <div class="server-status-right">
+                <span>🛡️ DDoS Protection: Active</span>
+                <span>⚡ Uptime: 99.9%</span>
+            </div>
         </div>
-        <div class="feature-card">
-            <h3>✨ Ekosistem yang Adil</h3>
-            <p>Alokasi hashrate merata dan transparan untuk setiap pengguna.</p>
+
+        <!-- Kartu Saldo Utama -->
+        <div class="main-balance-card">
+            <div class="balance-header">
+                <span>SALDO UTAMA DASHBOARD</span>
+                <span class="badge-trial">TRIAL MINING AKTIF</span>
+            </div>
+            <div class="balance-amount" id="liveBalance">$10.0010</div>
+            <div class="balance-idr">≈ Rp 165.017</div>
         </div>
-        <div class="feature-card">
-            <h3>🛡️ Keamanan Berlapis</h3>
-            <p>Proteksi DDoS aktif dengan enkripsi tingkat tinggi.</p>
+
+        <!-- Statistik Kecil -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-label">TOTAL CAIRKAN</div>
+                <div class="stat-value">$0.00</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">NODE AKTIF</div>
+                <div class="stat-value">1</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">REF BONUS</div>
+                <div class="stat-value">$0.00</div>
+            </div>
         </div>
+
+        <!-- Tombol Upgrade -->
+        <button class="upgrade-banner" onclick="alert('Fitur upgrade VVIP akan segera tersedia!')">
+            👑 Akun Trial? Upgrade VVIP untuk Membuka Fitur Tarik Saldo →
+        </button>
     </div>
 
     <!-- WHATSAPP FLOAT BUTTON -->
@@ -354,6 +513,7 @@
         const modal = document.getElementById('authModal');
         const formLogin = document.getElementById('formLogin');
         const formRegister = document.getElementById('formRegister');
+        let miningInterval;
 
         function openModal(type) {
             modal.style.display = 'flex';
@@ -410,22 +570,47 @@
                 localStorage.setItem('isLoggedIn', 'true');
                 alert('Login Berhasil! Selamat datang, ' + savedUser.name);
                 closeModal();
-                updateNavState(savedUser.name);
+                showDashboard(savedUser.name);
             } else {
                 alert('Email atau kata sandi salah!');
             }
         }
 
-        function updateNavState(name) {
+        function showDashboard(name) {
             document.getElementById('guestNav').style.display = 'none';
             document.getElementById('userNav').style.display = 'flex';
             document.getElementById('navUserName').innerText = name;
+            
+            // Sembunyikan Landing Page, Tampilkan Dashboard Mining
+            document.getElementById('landingView').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'block';
+
+            // Simulasi saldo bertambah otomatis tiap detik
+            startRealtimeMining();
+        }
+
+        function startRealtimeMining() {
+            let baseVal = 10.0010;
+            if(miningInterval) clearInterval(miningInterval);
+            miningInterval = setInterval(() => {
+                baseVal += 0.0001;
+                const el = document.getElementById('liveBalance');
+                if(el) {
+                    el.innerText = '$' + baseVal.toFixed(4);
+                }
+            }, 2000);
         }
 
         function handleLogout() {
             localStorage.removeItem('isLoggedIn');
+            if(miningInterval) clearInterval(miningInterval);
+
             document.getElementById('guestNav').style.display = 'flex';
             document.getElementById('userNav').style.display = 'none';
+            
+            // Kembali ke Landing Page
+            document.getElementById('dashboardView').style.display = 'none';
+            document.getElementById('landingView').style.display = 'block';
             alert('Anda telah keluar.');
         }
 
@@ -434,7 +619,7 @@
             const savedUser = JSON.parse(localStorage.getItem('meaningmax_user'));
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             if(isLoggedIn === 'true' && savedUser) {
-                updateNavState(savedUser.name);
+                showDashboard(savedUser.name);
             }
         }
 
