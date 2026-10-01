@@ -529,29 +529,39 @@
         }
         .switch-auth span { color: #38bdf8; cursor: pointer; font-weight: bold; }
 
-        /* QRIS Styles */
-        .qris-container {
-            background: #ffffff;
-            padding: 15px;
+        /* Payment Method Detail Box */
+        .pay-detail-box {
+            background: rgba(7, 10, 20, 0.9);
+            border: 1px solid rgba(56, 189, 248, 0.3);
             border-radius: 12px;
-            display: inline-block;
+            padding: 15px;
             margin: 15px 0;
+            text-align: left;
         }
-        .qris-container img {
-            width: 200px;
-            height: 200px;
-            display: block;
+        .pay-detail-box p {
+            font-size: 13px;
+            color: #94a3b8;
+            margin-bottom: 6px;
         }
-        .qris-amount {
-            font-size: 20px;
+        .pay-detail-box .pay-number {
+            font-size: 18px;
             font-weight: bold;
             color: #38bdf8;
-            margin-bottom: 10px;
+            font-family: monospace;
+            letter-spacing: 1px;
         }
-        .qris-timer {
-            font-size: 12px;
-            color: #f43f5e;
-            margin-bottom: 15px;
+        .qris-mini-img {
+            width: 160px;
+            height: 160px;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px auto;
+            display: none;
+        }
+        .qris-mini-img img {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
@@ -807,18 +817,29 @@
                 <button class="btn-submit" onclick="processWithdraw()">Proses Penarikan</button>
             </div>
 
-            <!-- Form Upgrade VIP -->
+            <!-- Form Upgrade VIP (Dengan Pilihan DANA / GoPay / QRIS SeaBank) -->
             <div id="formUpgrade" class="modal-form-section" style="display: none;">
-                <h2>👑 Upgrade Akun VIP</h2>
-                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 10px;">Scan QRIS di bawah menggunakan GoPay, OVO, Dana, BCA, atau Mobile Banking apa saja.</p>
+                <h2>👑 Upgrade VIP (Rp 25.000)</h2>
+                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">Pilih metode pembayaran transfer di bawah ini:</p>
                 
-                <div class="qris-amount">Rp 25.000</div>
-                <div class="qris-container">
-                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=00020101021126690014COM.GO-JEK.WWW0118936009143000000000303UMI51440014ID.CO.QRIS.WWW0215ID20260000000000303UMI5204541153033605802ID5912MEANINGMAX6007JAKARTA63041A2D" alt="QRIS Code">
+                <div class="form-group">
+                    <label>Metode Pembayaran</label>
+                    <select id="payMethodSelect" onchange="updatePaymentDetails()">
+                        <option value="seabank">QRIS SeaBank</option>
+                        <option value="dana">DANA</option>
+                        <option value="gopay">GoPay</option>
+                    </select>
                 </div>
-                <div class="qris-timer">⏱️ Selesaikan pembayaran dalam 10:00 menit</div>
 
-                <button class="btn-submit" onclick="processConfirmQris()">Saya Sudah Membayar (Cek Otomatis)</button>
+                <div class="pay-detail-box">
+                    <p id="payInstructionLabel">Scan QRIS SeaBank berikut:</p>
+                    <div id="qrisBoxContainer" class="qris-mini-img" style="display: block;">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=00020101021126690014COM.SEABANK.WWW0118ID10200384729183703UMI51440014ID.CO.QRIS.WWW0215ID20260000000000303UMI5204541153033605802ID5912MEANINGMAX6007JAKARTA63041A2D" alt="QRIS SeaBank">
+                    </div>
+                    <div class="pay-number" id="payNumberDisplay">Nominal: Rp 25.000</div>
+                </div>
+
+                <button class="btn-submit" onclick="processConfirmPayment()">Saya Sudah Transfer / Membayar</button>
             </div>
 
         </div>
@@ -845,6 +866,7 @@
                 document.getElementById('formWithdraw').style.display = 'block';
             } else if(type === 'upgradeVip') {
                 document.getElementById('formUpgrade').style.display = 'block';
+                updatePaymentDetails(); // Set default payment
             }
         }
 
@@ -854,6 +876,27 @@
 
         function switchModalForm(type) {
             openModal(type);
+        }
+
+        function updatePaymentDetails() {
+            const method = document.getElementById('payMethodSelect').value;
+            const label = document.getElementById('payInstructionLabel');
+            const display = document.getElementById('payNumberDisplay');
+            const qrisBox = document.getElementById('qrisBoxContainer');
+
+            if(method === 'seabank') {
+                label.innerText = 'Scan QRIS SeaBank berikut:';
+                qrisBox.style.display = 'block';
+                display.innerText = 'Total: Rp 25.000';
+            } else if(method === 'dana') {
+                label.innerText = 'Nomor DANA Admin:';
+                qrisBox.style.display = 'none';
+                display.innerText = '0812-3456-7890 (a.n. MeaningMax)';
+            } else if(method === 'gopay') {
+                label.innerText = 'Nomor GoPay Admin:';
+                qrisBox.style.display = 'none';
+                display.innerText = '0812-3456-7890 (a.n. MeaningMax)';
+            }
         }
 
         function handleRegister() {
@@ -935,10 +978,10 @@
             }, 2000);
         }
 
-        function processConfirmQris() {
+        function processConfirmPayment() {
             userDataState.isVip = true;
             saveUserDataStorage();
-            alert('🎉 Pembayaran QRIS berhasil dikonfirmasi! Akun Anda sekarang resmi berstatus VIP.');
+            alert('🎉 Pembayaran Anda berhasil dikonfirmasi! Akun Anda sekarang resmi berstatus VIP.');
             closeModal();
             updateDashboardUI();
             startRealtimeMining();
