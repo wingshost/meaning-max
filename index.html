@@ -18,6 +18,11 @@
             overflow-x: hidden;
         }
 
+        /* Sembunyikan konten utama di awal untuk mencegah kedipan saat refresh */
+        .main-container {
+            display: none;
+        }
+
         /* Navbar Full Width */
         nav {
             display: flex;
@@ -532,7 +537,7 @@
         }
         .switch-auth span { color: #38bdf8; cursor: pointer; font-weight: bold; }
 
-        /* Style khusus Tarik Saldo ala Screenshot */
+        /* Style khusus Tarik Saldo */
         .withdraw-warning-box {
             background: rgba(245, 158, 11, 0.1);
             border: 1px solid rgba(245, 158, 11, 0.3);
@@ -684,8 +689,8 @@
         </div>
     </nav>
 
-    <!-- KONTEN UTAMA -->
-    <div class="main-container">
+    <!-- KONTEN UTAMA (Ditampilkan otomatis oleh JS setelah verifikasi login) -->
+    <div class="main-container" id="appMainContainer">
 
         <!-- 1. LANDING PAGE -->
         <div id="landingView">
@@ -888,7 +893,7 @@
                 </div>
             </div>
 
-            <!-- Form Tarik Saldo (Disesuaikan dengan Referensi Gambar & Bank Lengkap) -->
+            <!-- Form Tarik Saldo -->
             <div id="formWithdraw" class="modal-form-section" style="display: none;">
                 <h2>Tarik Saldo</h2>
                 
@@ -915,7 +920,6 @@
                     </div>
                 </div>
 
-                <!-- Pilihan Bank Lengkap (Muncul jika kategori Bank dipilih) -->
                 <div class="form-group" id="bankSelectGroup" style="display: none;">
                     <label>PILIH BANK TUJUAN</label>
                     <select id="wdBankName">
@@ -958,7 +962,7 @@
                 </div>
             </div>
 
-            <!-- Form Upgrade VIP (Pilih Metode Dulu, Teks QRIS Saja) -->
+            <!-- Form Upgrade VIP -->
             <div id="formUpgrade" class="modal-form-section" style="display: none;">
                 <h2>👑 Upgrade VIP (Rp 25.000)</h2>
                 <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">Silakan pilih metode pembayaran di bawah ini:</p>
@@ -1263,6 +1267,7 @@
             alert('Anda telah keluar.');
         }
 
+        // Verifikasi status login sebelum halaman ditampilkan (mencegah kedipan / gangguan saat refresh)
         window.onload = function() {
             closeModal();
             const savedUser = JSON.parse(localStorage.getItem('meaningmax_user'));
@@ -1277,6 +1282,9 @@
                 document.getElementById('dashboardView').style.display = 'none';
                 document.getElementById('landingView').style.display = 'block';
             }
+
+            // Tampilkan kembali container utama dengan mulus
+            document.getElementById('appMainContainer').style.display = 'block';
         }
 
         window.onclick = function(event) {
