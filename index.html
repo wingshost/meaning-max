@@ -148,7 +148,7 @@
             margin-bottom: 25px;
         }
 
-        /* Status Badge Bar ala WingsServer */
+        /* Status Badge Bar */
         .status-badge-bar {
             display: inline-flex;
             align-items: center;
@@ -168,7 +168,6 @@
             gap: 6px;
         }
         .dot-green { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
-        .dot-red { width: 8px; height: 8px; background: #ef4444; border-radius: 50%; }
         .dot-yellow { width: 8px; height: 8px; background: #eab308; border-radius: 50%; }
 
         /* Main Full Width Container */
@@ -178,7 +177,6 @@
             padding: 0 30px 60px;
         }
 
-        /* Landing Guest View */
         .section-title-tag {
             text-align: center;
             color: #38bdf8;
@@ -191,7 +189,7 @@
             gap: 8px;
         }
 
-        /* Grid Paket / Card Layout */
+        /* Pricing Grid */
         .pricing-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
@@ -288,7 +286,7 @@
             color: #0b1120;
         }
 
-        /* Dashboard Wrapper (Setelah Login) - Layout Lebar */
+        /* Dashboard Wrapper */
         .dashboard-wrapper {
             display: none;
         }
@@ -302,13 +300,13 @@
             .dash-grid-top { grid-template-columns: 1fr; }
         }
 
-        /* Panel Saldo Utama & Terminal */
         .dash-card {
             background: rgba(15, 23, 42, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
             padding: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            position: relative;
         }
         .dash-card h3 {
             font-size: 15px;
@@ -345,6 +343,23 @@
             font-weight: bold;
             color: #ffffff;
         }
+        .badge-account-type {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid #38bdf8;
+            color: #38bdf8;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .badge-account-type.vvip {
+            background: linear-gradient(135deg, #fbbf24, #d97706);
+            color: #1e1b4b;
+            border: none;
+        }
 
         /* Terminal Mini */
         .terminal-box {
@@ -371,7 +386,7 @@
             color: #64748b;
         }
 
-        /* Quick Actions Grid */
+        /* Quick Actions Bar */
         .quick-actions-bar {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -395,7 +410,7 @@
         .qab-icon { font-size: 22px; margin-bottom: 8px; }
         .qab-label { font-size: 13px; font-weight: bold; color: #cbd5e1; }
 
-        /* Riwayat Transaksi Lebar */
+        /* History Card */
         .history-table-card {
             background: rgba(15, 23, 42, 0.8);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -457,7 +472,7 @@
             padding: 30px;
             border-radius: 16px;
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
@@ -469,9 +484,9 @@
             cursor: pointer;
         }
         .modal-box h2 {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             color: #38bdf8;
-            font-size: 22px;
+            font-size: 20px;
         }
         .form-group {
             margin-bottom: 15px;
@@ -482,7 +497,7 @@
             font-size: 13px;
             color: #cbd5e1;
         }
-        input {
+        input, select {
             width: 100%;
             padding: 12px;
             border-radius: 8px;
@@ -491,7 +506,7 @@
             color: #fff;
             font-size: 14px;
         }
-        input:focus { outline: none; border-color: #38bdf8; }
+        input:focus, select:focus { outline: none; border-color: #38bdf8; }
         .btn-submit {
             width: 100%;
             padding: 12px;
@@ -526,12 +541,10 @@
         </div>
 
         <div class="nav-right" id="navRightContainer">
-            <!-- Guest Nav -->
             <div id="guestNavBtns" style="display: flex; gap: 10px;">
                 <button class="btn-login" onclick="openModal('login')">Login</button>
                 <button class="btn-register" onclick="openModal('register')">Daftar Akun</button>
             </div>
-            <!-- Logged In Nav -->
             <div id="userNavProfile" style="display: none; align-items: center; gap: 12px;">
                 <div class="icon-btn" onclick="alert('Tidak ada notifikasi baru.')">🔔</div>
                 <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80" alt="Avatar" class="user-avatar">
@@ -540,10 +553,10 @@
         </div>
     </nav>
 
-    <!-- KONTEN UTAMA FULL WIDTH -->
+    <!-- KONTEN UTAMA -->
     <div class="main-container">
 
-        <!-- 1. LANDING PAGE (Sebelum Login) -->
+        <!-- 1. LANDING PAGE -->
         <div id="landingView">
             <div class="hero-section">
                 <h1>PERFORMA CLOUD MINING TANPA BATAS</h1>
@@ -597,7 +610,7 @@
 
                 <div class="price-card popular">
                     <div class="badge-popular">PALING LARIS</div>
-                    <div class="pc-title">Node Unlimited</div>
+                    <div class="pc-title">Node Unlimited (VVIP)</div>
                     <div class="pc-desc">Bebas Pakai Tanpa Batas</div>
                     <div class="pc-price">Rp 150.000 <span>/bln</span></div>
                     <div class="pc-features">
@@ -610,20 +623,20 @@
             </div>
         </div>
 
-        <!-- 2. DASHBOARD VIEW (Setelah Login) -->
+        <!-- 2. DASHBOARD VIEW -->
         <div id="dashboardView" class="dashboard-wrapper">
             
             <div class="dash-grid-top">
-                <!-- Kiri: Saldo Utama -->
                 <div class="dash-card">
+                    <div id="accountBadge" class="badge-account-type">STATUS: TRIAL</div>
                     <h3>TOTAL SALDO AKUN</h3>
                     <div class="balance-huge" id="liveBalance">$10.0000</div>
-                    <div class="balance-conv-sub">≈ Rp 165.000 (Mining Aktif Otomatis)</div>
+                    <div class="balance-conv-sub" id="balanceIdr">≈ Rp 165.000 (Mining Aktif)</div>
                     
                     <div class="dash-stats-row">
                         <div class="ds-item">
                             <div class="ds-label">TOTAL CAIRKAN</div>
-                            <div class="ds-val">$0.00</div>
+                            <div class="ds-val" id="totalWithdrawn">$0.00</div>
                         </div>
                         <div class="ds-item">
                             <div class="ds-label">NODE AKTIF</div>
@@ -636,7 +649,6 @@
                     </div>
                 </div>
 
-                <!-- Kanan: Terminal Node -->
                 <div class="terminal-box">
                     <div>
                         <div class="term-top-bar">
@@ -653,15 +665,15 @@
 
             <!-- Quick Action Buttons Bar -->
             <div class="quick-actions-bar">
-                <div class="qab-btn" onclick="alert('Fitur Tarik Uang memerlukan akun VVIP.')">
+                <div class="qab-btn" onclick="openModal('withdraw')">
                     <div class="qab-icon">💳</div>
-                    <div class="qab-label">Tarik Uang</div>
+                    <div class="qab-label">Tarik Tunai</div>
                 </div>
-                <div class="qab-btn" onclick="alert('Jadwal klaim harian besok.')">
+                <div class="qab-btn" onclick="alert('Jadwal klaim reward harian otomatis besok.')">
                     <div class="qab-icon">📅</div>
                     <div class="qab-label">Klaim Besok</div>
                 </div>
-                <div class="qab-btn" onclick="alert('Upgrade VVIP untuk membuka kecepatan maksimal.')">
+                <div class="qab-btn" onclick="openModal('upgradeVip')">
                     <div class="qab-icon">👑</div>
                     <div class="qab-label">Upgrade VVIP</div>
                 </div>
@@ -671,7 +683,7 @@
                 </div>
             </div>
 
-            <!-- Riwayat Transaksi Tabel Lebar -->
+            <!-- Riwayat Transaksi -->
             <div class="history-table-card">
                 <div class="ht-header">
                     <h3>RIWAYAT TRANSAKSI TERAKHIR</h3>
@@ -682,31 +694,19 @@
                     </div>
                 </div>
 
-                <div class="tx-item">
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <div style="background: rgba(56,189,248,0.1); color: #38bdf8; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">⛏️</div>
-                        <div>
-                            <div style="font-weight: bold; font-size: 13px;">Claim Blok #757048</div>
-                            <div style="font-size: 11px; color: #64748b;">20 Jul 2026, 09:24 WIB</div>
+                <div id="transactionList">
+                    <div class="tx-item">
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="background: rgba(56,189,248,0.1); color: #38bdf8; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">⛏️</div>
+                            <div>
+                                <div style="font-weight: bold; font-size: 13px;">Claim Blok #757048</div>
+                                <div style="font-size: 11px; color: #64748b;">20 Jul 2026, 09:24 WIB</div>
+                            </div>
                         </div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-weight: bold; color: #34d399; font-size: 14px;">+$0.1300</div>
-                        <span style="font-size: 10px; background: rgba(52,211,153,0.15); color: #34d399; padding: 2px 8px; border-radius: 6px; font-weight: bold;">SUKSES</span>
-                    </div>
-                </div>
-
-                <div class="tx-item">
-                    <div style="display: flex; align-items: center; gap: 12px;">
-                        <div style="background: rgba(244,63,94,0.1); color: #f43f5e; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">📤</div>
-                        <div>
-                            <div style="font-weight: bold; font-size: 13px;">Tarik Uang (DANA)</div>
-                            <div style="font-size: 11px; color: #64748b;">20 Jul 2026, 09:23 WIB</div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: bold; color: #34d399; font-size: 14px;">+$0.1300</div>
+                            <span style="font-size: 10px; background: rgba(52,211,153,0.15); color: #34d399; padding: 2px 8px; border-radius: 6px; font-weight: bold;">SUKSES</span>
                         </div>
-                    </div>
-                    <div style="text-align: right;">
-                        <div style="font-weight: bold; color: #f43f5e; font-size: 14px;">$3.1000</div>
-                        <span style="font-size: 10px; background: rgba(234,179,8,0.15); color: #eab308; padding: 2px 8px; border-radius: 6px; font-weight: bold;">DIPROSES</span>
                     </div>
                 </div>
             </div>
@@ -714,13 +714,13 @@
         </div>
     </div>
 
-    <!-- MODAL POPUP AUTH -->
+    <!-- MODAL POPUP GENERAL -->
     <div id="authModal" class="modal">
         <div class="modal-box">
             <span class="close-btn" onclick="closeModal()">&times;</span>
 
             <!-- Form Login -->
-            <div id="formLogin">
+            <div id="formLogin" class="modal-form-section" style="display: none;">
                 <h2>Login Akun</h2>
                 <div class="form-group">
                     <label>Email</label>
@@ -737,7 +737,7 @@
             </div>
 
             <!-- Form Register -->
-            <div id="formRegister" style="display: none;">
+            <div id="formRegister" class="modal-form-section" style="display: none;">
                 <h2>Daftar Akun Baru</h2>
                 <div class="form-group">
                     <label>Nama Lengkap</label>
@@ -757,23 +757,76 @@
                 </div>
             </div>
 
+            <!-- Form Tarik Tunai -->
+            <div id="formWithdraw" class="modal-form-section" style="display: none;">
+                <h2>Tarik Tunai (Withdraw)</h2>
+                <div class="form-group">
+                    <label>Metode Pembayaran</label>
+                    <select id="wdMethod">
+                        <option value="DANA">DANA</option>
+                        <option value="OVO">OVO</option>
+                        <option value="GOPAY">GoPay</option>
+                        <option value="BCA">Bank BCA</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Nomor Akun / Rekening</label>
+                    <input type="text" id="wdAccount" placeholder="Contoh: 081234567890">
+                </div>
+                <div class="form-group">
+                    <label>Jumlah Penarikan ($ USD)</label>
+                    <input type="number" id="wdAmount" placeholder="Minimal $3.00">
+                </div>
+                <button class="btn-submit" onclick="processWithdraw()">Proses Penarikan</button>
+            </div>
+
+            <!-- Form Upgrade VVIP -->
+            <div id="formUpgrade" class="modal-form-section" style="display: none;">
+                <h2>👑 Upgrade Akun ke VVIP</h2>
+                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px;">Nikmati kecepatan mining tanpa batas, node unlimited, dan bebas tarik kapan saja!</p>
+                <div class="form-group">
+                    <label>Pilih Paket Langganan</label>
+                    <select id="vipPlan">
+                        <option value="35000">Node Pro - Rp 35.000 / bln</option>
+                        <option value="75000">Node Ultra - Rp 75.000 / bln</option>
+                        <option value="150000" selected>Node Unlimited VVIP - Rp 150.000 / bln</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Metode Pembayaran (Simulasi)</label>
+                    <select>
+                        <option>QRIS Instant Payment</option>
+                        <option>Transfer Bank (BCA/Mandiri)</option>
+                        <option>Saldo Akun Mining</option>
+                    </select>
+                </div>
+                <button class="btn-submit" onclick="processUpgrade()">Konfirmasi Pembayaran VVIP</button>
+            </div>
+
         </div>
     </div>
 
     <script>
         const modal = document.getElementById('authModal');
-        const formLogin = document.getElementById('formLogin');
-        const formRegister = document.getElementById('formRegister');
         let miningInterval;
+        let userDataState = {
+            balance: 10.0000,
+            withdrawn: 0.00,
+            isVip: false
+        };
 
         function openModal(type) {
             modal.style.display = 'flex';
+            document.querySelectorAll('.modal-form-section').forEach(el => el.style.display = 'none');
+
             if(type === 'register') {
-                formLogin.style.display = 'none';
-                formRegister.style.display = 'block';
-            } else {
-                formRegister.style.display = 'none';
-                formLogin.style.display = 'block';
+                document.getElementById('formRegister').style.display = 'block';
+            } else if(type === 'login') {
+                document.getElementById('formLogin').style.display = 'block';
+            } else if(type === 'withdraw') {
+                document.getElementById('formWithdraw').style.display = 'block';
+            } else if(type === 'upgradeVip') {
+                document.getElementById('formUpgrade').style.display = 'block';
             }
         }
 
@@ -782,13 +835,7 @@
         }
 
         function switchModalForm(type) {
-            if(type === 'register') {
-                formLogin.style.display = 'none';
-                formRegister.style.display = 'block';
-            } else {
-                formRegister.style.display = 'none';
-                formLogin.style.display = 'block';
-            }
+            openModal(type);
         }
 
         function handleRegister() {
@@ -801,10 +848,10 @@
                 return;
             }
 
-            const userData = { name, email, password };
+            const userData = { name, email, password, ...userDataState };
             localStorage.setItem('meaningmax_user', JSON.stringify(userData));
             alert('Pendaftaran berhasil! Silakan login.');
-            switchModalForm('login');
+            openModal('login');
         }
 
         function handleLogin() {
@@ -819,6 +866,10 @@
 
             if(email === savedUser.email && password === savedUser.password) {
                 localStorage.setItem('isLoggedIn', 'true');
+                userDataState.balance = savedUser.balance || 10.0000;
+                userDataState.withdrawn = savedUser.withdrawn || 0.00;
+                userDataState.isVip = savedUser.isVip || false;
+
                 alert('Login Berhasil! Selamat datang, ' + savedUser.name);
                 closeModal();
                 showDashboard();
@@ -836,19 +887,102 @@
             document.getElementById('landingView').style.display = 'none';
             document.getElementById('dashboardView').style.display = 'block';
 
+            updateDashboardUI();
             startRealtimeMining();
         }
 
+        function updateDashboardUI() {
+            document.getElementById('liveBalance').innerText = '$' + userDataState.balance.toFixed(4);
+            document.getElementById('balanceIdr').innerText = '≈ Rp ' + Math.floor(userDataState.balance * 16500).toLocaleString('id-ID') + (userDataState.isVip ? ' (VVIP Active)' : ' (Mining Aktif)');
+            document.getElementById('totalWithdrawn').innerText = '$' + userDataState.withdrawn.toFixed(2);
+            
+            const badge = document.getElementById('accountBadge');
+            if(userDataState.isVip) {
+                badge.innerText = 'STATUS: VVIP ACTIVE 👑';
+                badge.className = 'badge-account-type vvip';
+            } else {
+                badge.innerText = 'STATUS: TRIAL';
+                badge.className = 'badge-account-type';
+            }
+        }
+
         function startRealtimeMining() {
-            let baseVal = 10.0000;
             if(miningInterval) clearInterval(miningInterval);
+            const incrementRate = userDataState.isVip ? 0.0005 : 0.0001;
+
             miningInterval = setInterval(() => {
-                baseVal += 0.0001;
-                const el = document.getElementById('liveBalance');
-                if(el) {
-                    el.innerText = '$' + baseVal.toFixed(4);
-                }
+                userDataState.balance += incrementRate;
+                updateDashboardUI();
+                saveUserDataStorage();
             }, 2000);
+        }
+
+        function processUpgrade() {
+            userDataState.isVip = true;
+            saveUserDataStorage();
+            alert('🎉 Selamat! Akun Anda berhasil di-upgrade ke VVIP. Kecepatan mining meningkat 5x lipat!');
+            closeModal();
+            updateDashboardUI();
+            startRealtimeMining();
+        }
+
+        function processWithdraw() {
+            const amount = parseFloat(document.getElementById('wdAmount').value);
+            const method = document.getElementById('wdMethod').value;
+            const account = document.getElementById('wdAccount').value;
+
+            if(!amount || !account) {
+                alert('Harap isi jumlah penarikan dan nomor akun tujuan!');
+                return;
+            }
+
+            if(!userDataState.isVip) {
+                alert('⚠️ Penarikan dana memerlukan akun VVIP! Silakan lakukan "Upgrade VVIP" terlebih dahulu.');
+                openModal('upgradeVip');
+                return;
+            }
+
+            if(amount > userDataState.balance) {
+                alert('Saldo Anda tidak mencukupi untuk melakukan penarikan sebesar $' + amount.toFixed(2));
+                return;
+            }
+
+            userDataState.balance -= amount;
+            userDataState.withdrawn += amount;
+            saveUserDataStorage();
+            updateDashboardUI();
+
+            // Tambahkan ke riwayat transaksi
+            const txList = document.getElementById('transactionList');
+            const newTx = document.createElement('div');
+            newTx.className = 'tx-item';
+            newTx.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="background: rgba(244,63,94,0.1); color: #f43f5e; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">📤</div>
+                    <div>
+                        <div style="font-weight: bold; font-size: 13px;">Tarik Tunai (${method})</div>
+                        <div style="font-size: 11px; color: #64748b;">Baru saja · Tujuan: ${account}</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-weight: bold; color: #f43f5e; font-size: 14px;">-$${amount.toFixed(4)}</div>
+                    <span style="font-size: 10px; background: rgba(52,211,153,0.15); color: #34d399; padding: 2px 8px; border-radius: 6px; font-weight: bold;">BERHASIL</span>
+                </div>
+            `;
+            txList.prepend(newTx);
+
+            alert('✅ Penarikan dana sebesar $' + amount.toFixed(4) + ' ke ' + method + ' berhasil diproses!');
+            closeModal();
+        }
+
+        function saveUserDataStorage() {
+            const savedUser = JSON.parse(localStorage.getItem('meaningmax_user'));
+            if(savedUser) {
+                savedUser.balance = userDataState.balance;
+                savedUser.withdrawn = userDataState.withdrawn;
+                savedUser.isVip = userDataState.isVip;
+                localStorage.setItem('meaningmax_user', JSON.stringify(savedUser));
+            }
         }
 
         function handleLogout() {
@@ -870,6 +1004,9 @@
             const isLoggedIn = localStorage.getItem('isLoggedIn');
             
             if(isLoggedIn === 'true' && savedUser) {
+                userDataState.balance = savedUser.balance || 10.0000;
+                userDataState.withdrawn = savedUser.withdrawn || 0.00;
+                userDataState.isVip = savedUser.isVip || false;
                 showDashboard();
             } else {
                 document.getElementById('dashboardView').style.display = 'none';
