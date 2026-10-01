@@ -689,7 +689,7 @@
         </div>
     </nav>
 
-    <!-- KONTEN UTAMA (Ditampilkan otomatis oleh JS setelah verifikasi login) -->
+    <!-- KONTEN UTAMA -->
     <div class="main-container" id="appMainContainer">
 
         <!-- 1. LANDING PAGE -->
@@ -1026,7 +1026,7 @@
 
     <script>
         const modal = document.getElementById('authModal');
-        let miningInterval;
+        let miningInterval = null;
         let selectedWithdrawType = 'DANA';
         let userDataState = {
             balance: 10.0000,
@@ -1171,7 +1171,12 @@
         }
 
         function startRealtimeMining() {
-            if(miningInterval) clearInterval(miningInterval);
+            // Bersihkan interval lama agar tidak menumpuk / berat saat refresh
+            if(miningInterval) {
+                clearInterval(miningInterval);
+                miningInterval = null;
+            }
+
             const incrementRate = userDataState.isVip ? 0.0005 : 0.0001;
 
             miningInterval = setInterval(() => {
@@ -1256,7 +1261,10 @@
 
         function handleLogout() {
             localStorage.removeItem('isLoggedIn');
-            if(miningInterval) clearInterval(miningInterval);
+            if(miningInterval) {
+                clearInterval(miningInterval);
+                miningInterval = null;
+            }
 
             document.getElementById('guestNavBtns').style.display = 'flex';
             document.getElementById('userNavProfile').style.display = 'none';
@@ -1267,7 +1275,6 @@
             alert('Anda telah keluar.');
         }
 
-        // Verifikasi status login sebelum halaman ditampilkan (mencegah kedipan / gangguan saat refresh)
         window.onload = function() {
             closeModal();
             const savedUser = JSON.parse(localStorage.getItem('meaningmax_user'));
@@ -1283,7 +1290,6 @@
                 document.getElementById('landingView').style.display = 'block';
             }
 
-            // Tampilkan kembali container utama dengan mulus
             document.getElementById('appMainContainer').style.display = 'block';
         }
 
