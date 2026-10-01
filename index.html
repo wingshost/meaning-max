@@ -472,10 +472,10 @@
             padding: 30px;
             border-radius: 16px;
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            text-align: center;
+            text-align: left;
         }
         .close-btn {
             position: absolute;
@@ -485,19 +485,21 @@
             cursor: pointer;
         }
         .modal-box h2 {
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             color: #38bdf8;
             font-size: 20px;
+            text-align: center;
         }
         .form-group {
             margin-bottom: 15px;
-            text-align: left;
         }
         label {
             display: block;
             margin-bottom: 6px;
-            font-size: 13px;
-            color: #cbd5e1;
+            font-size: 11px;
+            color: #64748b;
+            font-weight: bold;
+            letter-spacing: 0.5px;
         }
         input, select {
             width: 100%;
@@ -511,7 +513,7 @@
         input:focus, select:focus { outline: none; border-color: #38bdf8; }
         .btn-submit {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             background: #38bdf8;
             border: none;
             border-radius: 8px;
@@ -520,6 +522,7 @@
             font-size: 15px;
             cursor: pointer;
             margin-top: 10px;
+            box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
         }
         .switch-auth {
             text-align: center;
@@ -529,7 +532,71 @@
         }
         .switch-auth span { color: #38bdf8; cursor: pointer; font-weight: bold; }
 
-        /* Payment Selection Buttons */
+        /* Style khusus Tarik Saldo ala Screenshot */
+        .withdraw-warning-box {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 12px;
+            color: #fcd34d;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .withdraw-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .wm-card {
+            background: #070a14;
+            border: 1px solid #334155;
+            border-radius: 10px;
+            padding: 12px 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .wm-card:hover {
+            border-color: #38bdf8;
+        }
+        .wm-card.active {
+            border-color: #38bdf8;
+            background: rgba(56, 189, 248, 0.15);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+        .wm-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #38bdf8;
+            color: #0b1120;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 6px auto;
+            font-size: 12px;
+        }
+        .wm-card:nth-child(2) .wm-icon { background: #22c55e; }
+        .wm-card:nth-child(3) .wm-icon { background: #a855f7; }
+        .wm-label {
+            font-size: 12px;
+            font-weight: bold;
+            color: #fff;
+        }
+        .withdraw-footer-info {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            color: #64748b;
+            margin-top: 8px;
+        }
+
+        /* Payment Selection Buttons (Upgrade VIP) */
         .pay-options-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -554,8 +621,6 @@
         }
         .poc-title { font-weight: bold; font-size: 14px; color: #fff; }
         .poc-sub { font-size: 11px; color: #94a3b8; }
-
-        /* Detail/QRIS Box (Hidden Initially) */
         .pay-result-box {
             background: #070a14;
             border: 1px solid rgba(56, 189, 248, 0.3);
@@ -823,27 +888,74 @@
                 </div>
             </div>
 
-            <!-- Form Tarik Tunai -->
+            <!-- Form Tarik Saldo (Disesuaikan dengan Referensi Gambar & Bank Lengkap) -->
             <div id="formWithdraw" class="modal-form-section" style="display: none;">
-                <h2>Tarik Tunai (Withdraw)</h2>
+                <h2>Tarik Saldo</h2>
+                
+                <div class="withdraw-warning-box">
+                    <span>⚠</span>
+                    <span>Berikan detail informasi bank atau alamat tujuan e-wallet yang benar supaya terhindar dari reject!</span>
+                </div>
+
                 <div class="form-group">
-                    <label>Metode Pembayaran</label>
-                    <select id="wdMethod">
-                        <option value="DANA">DANA</option>
-                        <option value="OVO">OVO</option>
-                        <option value="GOPAY">GoPay</option>
-                        <option value="BCA">Bank BCA</option>
+                    <label>METODE PEMBAYARAN</label>
+                    <div class="withdraw-methods-grid">
+                        <div class="wm-card active" id="wmDana" onclick="selectWithdrawMethod('DANA')">
+                            <div class="wm-icon">D</div>
+                            <div class="wm-label">DANA</div>
+                        </div>
+                        <div class="wm-card" id="wmGopay" onclick="selectWithdrawMethod('GoPay')">
+                            <div class="wm-icon">G</div>
+                            <div class="wm-label">GoPay</div>
+                        </div>
+                        <div class="wm-card" id="wmBank" onclick="selectWithdrawMethod('Bank')">
+                            <div class="wm-icon">🏦</div>
+                            <div class="wm-label">Bank</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pilihan Bank Lengkap (Muncul jika kategori Bank dipilih) -->
+                <div class="form-group" id="bankSelectGroup" style="display: none;">
+                    <label>PILIH BANK TUJUAN</label>
+                    <select id="wdBankName">
+                        <option value="BCA">Bank BCA (Bank Central Asia)</option>
+                        <option value="Mandiri">Bank Mandiri</option>
+                        <option value="BNI">Bank BNI (Negara Indonesia)</option>
+                        <option value="BRI">Bank BRI (Rakyat Indonesia)</option>
+                        <option value="SeaBank">SeaBank Indonesia</option>
+                        <option value="Jago">Bank Jago</option>
+                        <option value="CIMB">CIMB Niaga</option>
+                        <option value="Permata">Bank Permata</option>
+                        <option value="Danamon">Bank Danamon</option>
+                        <option value="BSI">BSI (Syariah Indonesia)</option>
+                        <option value="OCBC">OCBC NISP</option>
+                        <option value="Panin">Panin Bank</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Nomor Akun / Rekening</label>
-                    <input type="text" id="wdAccount" placeholder="Contoh: 081234567890">
+
+                <div class="form-group" id="accountLabelGroup">
+                    <label id="accountLabelText">NOMOR DANA</label>
+                    <input type="text" id="wdAccount" placeholder="08...">
                 </div>
+
                 <div class="form-group">
-                    <label>Jumlah Penarikan ($ USD)</label>
-                    <input type="number" id="wdAmount" placeholder="Minimal $3.00">
+                    <label>ATAS NAMA</label>
+                    <input type="text" id="wdHolderName" placeholder="Nama pemilik akun">
                 </div>
-                <button class="btn-submit" onclick="processWithdraw()">Proses Penarikan</button>
+
+                <div class="form-group">
+                    <label>JUMLAH TARIK (USD)</label>
+                    <input type="number" id="wdAmount" placeholder="Min. $1.00">
+                </div>
+
+                <button class="btn-submit" onclick="processWithdraw()">↓ TARIK SEKARANG</button>
+
+                <div class="withdraw-footer-info">
+                    <span>⚡ Min. $1.00</span>
+                    <span>Kurs Rp 16.500/$</span>
+                    <span>Proses 1-3 menit</span>
+                </div>
             </div>
 
             <!-- Form Upgrade VIP (Pilih Metode Dulu, Teks QRIS Saja) -->
@@ -851,7 +963,6 @@
                 <h2>👑 Upgrade VIP (Rp 25.000)</h2>
                 <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">Silakan pilih metode pembayaran di bawah ini:</p>
                 
-                <!-- Tampilan Pilihan Metode -->
                 <div id="methodSelectionArea">
                     <div class="pay-options-grid">
                         <div class="pay-option-card" onclick="selectPaymentMethod('qris_only')">
@@ -880,7 +991,6 @@
                     </div>
                 </div>
 
-                <!-- Tampilan Hasil Detail / QRIS -->
                 <div id="paymentDetailArea" style="display: none;">
                     <button class="btn-back-method" onclick="resetPaymentSelection()">← Pilih Metode Lain</button>
                     
@@ -913,6 +1023,7 @@
     <script>
         const modal = document.getElementById('authModal');
         let miningInterval;
+        let selectedWithdrawType = 'DANA';
         let userDataState = {
             balance: 10.0000,
             withdrawn: 0.00,
@@ -929,6 +1040,7 @@
                 document.getElementById('formLogin').style.display = 'block';
             } else if(type === 'withdraw') {
                 document.getElementById('formWithdraw').style.display = 'block';
+                selectWithdrawMethod('DANA');
             } else if(type === 'upgradeVip') {
                 document.getElementById('formUpgrade').style.display = 'block';
                 resetPaymentSelection();
@@ -941,6 +1053,27 @@
 
         function switchModalForm(type) {
             openModal(type);
+        }
+
+        function selectWithdrawMethod(method) {
+            selectedWithdrawType = method;
+            document.getElementById('wmDana').className = 'wm-card' + (method === 'DANA' ? ' active' : '');
+            document.getElementById('wmGopay').className = 'wm-card' + (method === 'GoPay' ? ' active' : '');
+            document.getElementById('wmBank').className = 'wm-card' + (method === 'Bank' ? ' active' : '');
+
+            const bankGroup = document.getElementById('bankSelectGroup');
+            const labelText = document.getElementById('accountLabelText');
+            const accountInput = document.getElementById('wdAccount');
+
+            if(method === 'Bank') {
+                bankGroup.style.display = 'block';
+                labelText.innerText = 'NOMOR REKENING BANK';
+                accountInput.placeholder = 'Masukkan nomor rekening...';
+            } else {
+                bankGroup.style.display = 'none';
+                labelText.innerText = 'NOMOR ' + method.toUpperCase();
+                accountInput.placeholder = '08...';
+            }
         }
 
         function selectPaymentMethod(method) {
@@ -1055,17 +1188,23 @@
 
         function processWithdraw() {
             const amount = parseFloat(document.getElementById('wdAmount').value);
-            const method = document.getElementById('wdMethod').value;
             const account = document.getElementById('wdAccount').value;
+            const holderName = document.getElementById('wdHolderName').value;
+            const bankName = selectedWithdrawType === 'Bank' ? document.getElementById('wdBankName').value : selectedWithdrawType;
 
-            if(!amount || !account) {
-                alert('Harap isi jumlah penarikan dan nomor akun tujuan!');
+            if(!amount || !account || !holderName) {
+                alert('Harap isi semua kolom informasi penarikan dengan benar!');
                 return;
             }
 
             if(!userDataState.isVip) {
                 alert('⚠️ Penarikan dana memerlukan akun VIP! Silakan lakukan "Upgrade VIP" terlebih dahulu.');
                 openModal('upgradeVip');
+                return;
+            }
+
+            if(amount < 1.0) {
+                alert('Minimal penarikan adalah $1.00!');
                 return;
             }
 
@@ -1086,8 +1225,8 @@
                 <div style="display: flex; align-items: center; gap: 12px;">
                     <div style="background: rgba(244,63,94,0.1); color: #f43f5e; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">📤</div>
                     <div>
-                        <div style="font-weight: bold; font-size: 13px;">Tarik Tunai (${method})</div>
-                        <div style="font-size: 11px; color: #64748b;">Baru saja · Tujuan: ${account}</div>
+                        <div style="font-weight: bold; font-size: 13px;">Tarik Tunai (${bankName})</div>
+                        <div style="font-size: 11px; color: #64748b;">Baru saja · Rek: ${account} (${holderName})</div>
                     </div>
                 </div>
                 <div style="text-align: right;">
@@ -1097,7 +1236,7 @@
             `;
             txList.prepend(newTx);
 
-            alert('✅ Penarikan dana sebesar $' + amount.toFixed(4) + ' ke ' + method + ' berhasil diproses!');
+            alert('✅ Penarikan dana sebesar $' + amount.toFixed(4) + ' ke ' + bankName + ' berhasil diproses!');
             closeModal();
         }
 
