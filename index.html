@@ -587,7 +587,7 @@
                 <div class="price-card">
                     <div class="pc-title">Node Pro 4 GB</div>
                     <div class="pc-desc">Cocok untuk Mining Konsisten</div>
-                    <div class="pc-price">Rp 35.000 <span>/bln</span></div>
+                    <div class="pc-price">Rp 25.000 <span>/bln</span></div>
                     <div class="pc-features">
                         <div><span>✓</span> Node Aktif: 3</div>
                         <div><span>✓</span> Kecepatan 3x Lipat</div>
@@ -599,7 +599,7 @@
                 <div class="price-card">
                     <div class="pc-title">Node Ultra 8 GB</div>
                     <div class="pc-desc">Performa Tinggi & Multi-App</div>
-                    <div class="pc-price">Rp 75.000 <span>/bln</span></div>
+                    <div class="pc-price">Rp 50.000 <span>/bln</span></div>
                     <div class="pc-features">
                         <div><span>✓</span> Node Aktif: 8</div>
                         <div><span>✓</span> High Performance CPU</div>
@@ -610,13 +610,13 @@
 
                 <div class="price-card popular">
                     <div class="badge-popular">PALING LARIS</div>
-                    <div class="pc-title">Node Unlimited (VVIP)</div>
-                    <div class="pc-desc">Bebas Pakai Tanpa Batas</div>
-                    <div class="pc-price">Rp 150.000 <span>/bln</span></div>
+                    <div class="pc-title">Node VIP Spesial</div>
+                    <div class="pc-desc">Bebas Pakai & Cepat Cair</div>
+                    <div class="pc-price">Rp 25.000 <span>/bln</span></div>
                     <div class="pc-features">
                         <div><span>✓</span> Node Unlimited</div>
-                        <div><span>✓</span> CPU & Storage Tanpa Batas</div>
-                        <div><span>✓</span> Full Akses VVIP + Prioritas</div>
+                        <div><span>✓</span> CPU & Storage Cepat</div>
+                        <div><span>✓</span> Full Akses VIP + Prioritas</div>
                     </div>
                     <button class="btn-card-action" onclick="openModal('register')">Pesan Sekarang</button>
                 </div>
@@ -675,7 +675,7 @@
                 </div>
                 <div class="qab-btn" onclick="openModal('upgradeVip')">
                     <div class="qab-icon">👑</div>
-                    <div class="qab-label">Upgrade VVIP</div>
+                    <div class="qab-label">Upgrade VIP</div>
                 </div>
                 <div class="qab-btn" onclick="alert('Bagikan link referral Anda untuk komisi pasif.')">
                     <div class="qab-icon">👥</div>
@@ -782,14 +782,13 @@
 
             <!-- Form Upgrade VVIP -->
             <div id="formUpgrade" class="modal-form-section" style="display: none;">
-                <h2>👑 Upgrade Akun ke VVIP</h2>
-                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px;">Nikmati kecepatan mining tanpa batas, node unlimited, dan bebas tarik kapan saja!</p>
+                <h2>👑 Upgrade Akun ke VIP</h2>
+                <p style="font-size: 13px; color: #94a3b8; margin-bottom: 15px;">Nikmati kecepatan mining tanpa batas dan bebas tarik tunai kapan saja hanya dengan Rp 25.000!</p>
                 <div class="form-group">
                     <label>Pilih Paket Langganan</label>
                     <select id="vipPlan">
-                        <option value="35000">Node Pro - Rp 35.000 / bln</option>
-                        <option value="75000">Node Ultra - Rp 75.000 / bln</option>
-                        <option value="150000" selected>Node Unlimited VVIP - Rp 150.000 / bln</option>
+                        <option value="25000" selected>Node VIP Spesial - Rp 25.000 / bln</option>
+                        <option value="50000">Node Ultra - Rp 50.000 / bln</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -800,7 +799,7 @@
                         <option>Saldo Akun Mining</option>
                     </select>
                 </div>
-                <button class="btn-submit" onclick="processUpgrade()">Konfirmasi Pembayaran VVIP</button>
+                <button class="btn-submit" onclick="processUpgrade()">Konfirmasi Pembayaran VIP</button>
             </div>
 
         </div>
@@ -893,12 +892,12 @@
 
         function updateDashboardUI() {
             document.getElementById('liveBalance').innerText = '$' + userDataState.balance.toFixed(4);
-            document.getElementById('balanceIdr').innerText = '≈ Rp ' + Math.floor(userDataState.balance * 16500).toLocaleString('id-ID') + (userDataState.isVip ? ' (VVIP Active)' : ' (Mining Aktif)');
+            document.getElementById('balanceIdr').innerText = '≈ Rp ' + Math.floor(userDataState.balance * 16500).toLocaleString('id-ID') + (userDataState.isVip ? ' (VIP Active)' : ' (Mining Aktif)');
             document.getElementById('totalWithdrawn').innerText = '$' + userDataState.withdrawn.toFixed(2);
             
             const badge = document.getElementById('accountBadge');
             if(userDataState.isVip) {
-                badge.innerText = 'STATUS: VVIP ACTIVE 👑';
+                badge.innerText = 'STATUS: VIP ACTIVE 👑';
                 badge.className = 'badge-account-type vvip';
             } else {
                 badge.innerText = 'STATUS: TRIAL';
@@ -920,7 +919,7 @@
         function processUpgrade() {
             userDataState.isVip = true;
             saveUserDataStorage();
-            alert('🎉 Selamat! Akun Anda berhasil di-upgrade ke VVIP. Kecepatan mining meningkat 5x lipat!');
+            alert('🎉 Selamat! Akun Anda berhasil di-upgrade ke VIP (Rp 25.000). Kecepatan mining meningkat!');
             closeModal();
             updateDashboardUI();
             startRealtimeMining();
@@ -937,7 +936,7 @@
             }
 
             if(!userDataState.isVip) {
-                alert('⚠️ Penarikan dana memerlukan akun VVIP! Silakan lakukan "Upgrade VVIP" terlebih dahulu.');
+                alert('⚠️ Penarikan dana memerlukan akun VIP! Silakan lakukan "Upgrade VIP" terlebih dahulu.');
                 openModal('upgradeVip');
                 return;
             }
