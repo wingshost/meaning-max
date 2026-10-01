@@ -552,10 +552,6 @@
             border-color: #38bdf8;
             background: rgba(56, 189, 248, 0.05);
         }
-        .pay-option-card.selected {
-            border-color: #38bdf8;
-            background: rgba(56, 189, 248, 0.12);
-        }
         .poc-title { font-weight: bold; font-size: 14px; color: #fff; }
         .poc-sub { font-size: 11px; color: #94a3b8; }
 
@@ -579,7 +575,7 @@
             display: block;
         }
         .pay-info-text {
-            font-size: 14px;
+            font-size: 15px;
             color: #38bdf8;
             font-weight: bold;
             font-family: monospace;
@@ -850,17 +846,17 @@
                 <button class="btn-submit" onclick="processWithdraw()">Proses Penarikan</button>
             </div>
 
-            <!-- Form Upgrade VIP (Pilih Metode Dulu, Baru Tampil QRIS/Nomor) -->
+            <!-- Form Upgrade VIP (Pilih Metode Dulu, Teks QRIS Saja) -->
             <div id="formUpgrade" class="modal-form-section" style="display: none;">
                 <h2>👑 Upgrade VIP (Rp 25.000)</h2>
                 <p style="font-size: 13px; color: #94a3b8; margin-bottom: 12px;">Silakan pilih metode pembayaran di bawah ini:</p>
                 
-                <!-- Tampilan Pilihan Metode (Awalnya Muncul) -->
+                <!-- Tampilan Pilihan Metode -->
                 <div id="methodSelectionArea">
                     <div class="pay-options-grid">
-                        <div class="pay-option-card" onclick="selectPaymentMethod('seabank')">
+                        <div class="pay-option-card" onclick="selectPaymentMethod('qris_only')">
                             <div>
-                                <div class="poc-title">QRIS SeaBank</div>
+                                <div class="poc-title">QRIS Saja</div>
                                 <div class="poc-sub">Scan pakai semua E-Wallet / M-Banking</div>
                             </div>
                             <span style="color: #38bdf8; font-size: 16px;">➔</span>
@@ -884,13 +880,14 @@
                     </div>
                 </div>
 
-                <!-- Tampilan Hasil Detail / QRIS (Disembunyikan Dulu Sampai Dipilih) -->
+                <!-- Tampilan Hasil Detail / QRIS -->
                 <div id="paymentDetailArea" style="display: none;">
                     <button class="btn-back-method" onclick="resetPaymentSelection()">← Pilih Metode Lain</button>
                     
-                    <div class="pay-result-box" id="boxSeabank" style="display: none;">
-                        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">Scan QRIS SeaBank (Total: Rp 25.000)</p>
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=00020101021126690014COM.SEABANK.WWW0118ID10200384729183703UMI51440014ID.CO.QRIS.WWW0215ID20260000000000303UMI5204541153033605802ID5912MEANINGMAX6007JAKARTA63041A2D" alt="QRIS SeaBank">
+                    <div class="pay-result-box" id="boxQrisOnly" style="display: none;">
+                        <p style="font-size: 12px; color: #94a3b8; margin-bottom: 4px;">Scan QRIS Pembayaran (Total: Rp 25.000)</p>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=00020101021126580014ID.OI.WWW0118936009143QRIS0303UMI51440014ID.CO.QRIS.WWW0215ID2026QRISONLY303UMI5204541153033605802ID5912MEANINGMAX6007JAKARTA630488A1" alt="QRIS Saja">
+                        <div class="pay-info-text">Total: Rp 25.000</div>
                     </div>
 
                     <div class="pay-result-box" id="boxDana" style="display: none;">
@@ -934,7 +931,7 @@
                 document.getElementById('formWithdraw').style.display = 'block';
             } else if(type === 'upgradeVip') {
                 document.getElementById('formUpgrade').style.display = 'block';
-                resetPaymentSelection(); // Reset tampilan ke pilihan tombol awal
+                resetPaymentSelection();
             }
         }
 
@@ -950,14 +947,12 @@
             document.getElementById('methodSelectionArea').style.display = 'none';
             document.getElementById('paymentDetailArea').style.display = 'block';
 
-            // Sembunyikan semua detail dulu
-            document.getElementById('boxSeabank').style.display = 'none';
+            document.getElementById('boxQrisOnly').style.display = 'none';
             document.getElementById('boxDana').style.display = 'none';
             document.getElementById('boxGopay').style.display = 'none';
 
-            // Tampilkan sesuai pilihan
-            if(method === 'seabank') {
-                document.getElementById('boxSeabank').style.display = 'block';
+            if(method === 'qris_only') {
+                document.getElementById('boxQrisOnly').style.display = 'block';
             } else if(method === 'dana') {
                 document.getElementById('boxDana').style.display = 'block';
             } else if(method === 'gopay') {
