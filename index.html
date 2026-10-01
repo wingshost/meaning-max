@@ -39,6 +39,7 @@
         .nav-buttons {
             display: flex;
             gap: 12px;
+            align-items: center;
         }
         .btn-signin {
             background: transparent;
@@ -67,6 +68,24 @@
         }
         .btn-getstarted:hover {
             opacity: 0.9;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+        .btn-logout {
+            background: #ef4444;
+            border: none;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+        .btn-logout:hover {
+            background: #dc2626;
         }
 
         /* Hero Section */
@@ -239,9 +258,17 @@
     <!-- NAVBAR -->
     <nav>
         <div class="logo">MEANINGMAX</div>
-        <div class="nav-buttons">
-            <button class="btn-signin" onclick="openModal('login')">Sign In</button>
-            <button class="btn-getstarted" onclick="openModal('register')">Get Started</button>
+        <div class="nav-buttons" id="navButtonsContainer">
+            <!-- Tombol sebelum login -->
+            <div id="guestNav" style="display: flex; gap: 10px;">
+                <button class="btn-signin" onclick="openModal('login')">Sign In</button>
+                <button class="btn-getstarted" onclick="openModal('register')">Get Started</button>
+            </div>
+            <!-- Tampilan setelah login -->
+            <div id="userNav" class="user-profile" style="display: none;">
+                <span>Halo, <strong id="navUserName">User</strong></span>
+                <button class="btn-logout" onclick="handleLogout()">Keluar</button>
+            </div>
         </div>
     </nav>
 
@@ -380,10 +407,34 @@
             }
 
             if(email === savedUser.email && password === savedUser.password) {
+                localStorage.setItem('isLoggedIn', 'true');
                 alert('Login Berhasil! Selamat datang, ' + savedUser.name);
                 closeModal();
+                updateNavState(savedUser.name);
             } else {
                 alert('Email atau kata sandi salah!');
+            }
+        }
+
+        function updateNavState(name) {
+            document.getElementById('guestNav').style.display = 'none';
+            document.getElementById('userNav').style.display = 'flex';
+            document.getElementById('navUserName').innerText = name;
+        }
+
+        function handleLogout() {
+            localStorage.removeItem('isLoggedIn');
+            document.getElementById('guestNav').style.display = 'flex';
+            document.getElementById('userNav').style.display = 'none';
+            alert('Anda telah keluar.');
+        }
+
+        // Cek status saat halaman dimuat
+        window.onload = function() {
+            const savedUser = JSON.parse(localStorage.getItem('meaningmax_user'));
+            const isLoggedIn = localStorage.getItem('isLoggedIn');
+            if(isLoggedIn === 'true' && savedUser) {
+                updateNavState(savedUser.name);
             }
         }
 
@@ -395,4 +446,4 @@
         }
     </script>
 </body>
-</html>s
+</html>
