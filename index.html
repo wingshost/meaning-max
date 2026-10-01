@@ -90,9 +90,9 @@
 
         /* Container Umum */
         .container {
-            max-width: 900px;
+            max-width: 1150px;
             margin: 0 auto;
-            padding: 30px 20px;
+            padding: 25px 20px;
         }
 
         /* Hero Section (Sebelum Login) */
@@ -173,13 +173,26 @@
             gap: 15px;
             color: #94a3b8;
         }
+
+        /* Layout Grid Dashboard */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 25px;
+        }
+        @media(max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .main-balance-card {
             background: rgba(30, 41, 59, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
             padding: 30px;
             position: relative;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             backdrop-filter: blur(10px);
         }
         .balance-header {
@@ -209,16 +222,12 @@
             color: #38bdf8;
             font-size: 14px;
         }
+
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
-            margin-bottom: 25px;
-        }
-        @media(max-width: 650px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
+            margin-bottom: 20px;
         }
         .stat-card {
             background: rgba(30, 41, 59, 0.4);
@@ -228,7 +237,7 @@
             text-align: center;
         }
         .stat-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #94a3b8;
             margin-bottom: 8px;
         }
@@ -237,6 +246,7 @@
             font-weight: bold;
             color: #ffffff;
         }
+
         .upgrade-banner {
             background: linear-gradient(135deg, #b45309, #d97706);
             border: none;
@@ -252,6 +262,79 @@
         }
         .upgrade-banner:hover {
             opacity: 0.9;
+        }
+
+        /* Panel Kanan (Cloud Mining & Terminal Logs) */
+        .right-panels {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .cloud-side-card {
+            background: rgba(30, 41, 59, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+        }
+        .cloud-side-card h3 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #ffffff;
+        }
+        .cloud-side-card p {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        .btn-side-action {
+            background: transparent;
+            border: 1px solid rgba(56, 189, 248, 0.4);
+            color: #38bdf8;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+        }
+        .btn-side-action:hover {
+            background: rgba(56, 189, 248, 0.1);
+        }
+
+        .terminal-card {
+            background: rgba(15, 23, 42, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 20px;
+            font-family: monospace;
+        }
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+        .t-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .t-red { background: #ef4444; }
+        .t-yellow { background: #eab308; }
+        .t-green { background: #22c55e; }
+        .terminal-body {
+            font-size: 11px;
+            color: #34d399;
+            line-height: 1.6;
         }
 
         /* Modal Popup */
@@ -428,36 +511,65 @@
             </div>
         </div>
 
-        <!-- Kartu Saldo Utama -->
-        <div class="main-balance-card">
-            <div class="balance-header">
-                <span>SALDO UTAMA DASHBOARD</span>
-                <span class="badge-trial">TRIAL MINING AKTIF</span>
-            </div>
-            <div class="balance-amount" id="liveBalance">$10.0010</div>
-            <div class="balance-idr">≈ Rp 165.017</div>
-        </div>
+        <!-- Grid Dashboard Utama -->
+        <div class="dashboard-grid">
+            <!-- Sisi Kiri: Saldo & Statistik -->
+            <div>
+                <div class="main-balance-card">
+                    <div class="balance-header">
+                        <span>SALDO UTAMA DASHBOARD</span>
+                        <span class="badge-trial">TRIAL MINING AKTIF</span>
+                    </div>
+                    <div class="balance-amount" id="liveBalance">$10.0010</div>
+                    <div class="balance-idr">≈ Rp 165.017</div>
+                </div>
 
-        <!-- Statistik Kecil -->
-        <div class="stats-grid">
-            <div class="stat-card">
-                <div class="stat-label">TOTAL CAIRKAN</div>
-                <div class="stat-value">$0.00</div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-label">TOTAL CAIRKAN</div>
+                        <div class="stat-value">$0.00</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">NODE AKTIF</div>
+                        <div class="stat-value">1</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-label">REF BONUS</div>
+                        <div class="stat-value">$0.00</div>
+                    </div>
+                </div>
+
+                <button class="upgrade-banner" onclick="alert('Fitur upgrade VVIP akan segera tersedia!')">
+                    👑 Akun Trial? Upgrade VVIP untuk Membuka Fitur Tarik Saldo →
+                </button>
             </div>
-            <div class="stat-card">
-                <div class="stat-label">NODE AKTIF</div>
-                <div class="stat-value">1</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-label">REF BONUS</div>
-                <div class="stat-value">$0.00</div>
+
+            <!-- Sisi Kanan: Cloud Mining Info & Terminal Logs -->
+            <div class="right-panels">
+                <div class="cloud-side-card">
+                    <h3>☁️ Cloud Mining 24/7</h3>
+                    <p>Server aktif tanpa henti. Sistem menambang reward otomatis setiap menit langsung masuk ke saldo utama Anda tanpa hardware tambahan.</p>
+                    <button class="btn-side-action" onclick="alert('Panduan cara kerja aktif.')">Lihat Cara Kerja →</button>
+                </div>
+
+                <div class="terminal-card">
+                    <div class="terminal-header">
+                        <div class="terminal-dots">
+                            <div class="t-dot t-red"></div>
+                            <div class="t-dot t-yellow"></div>
+                            <div class="t-dot t-green"></div>
+                        </div>
+                        <span style="color: #94a3b8;">Terminal Node Logs</span>
+                        <span style="color: #34d399;">● LIVE</span>
+                    </div>
+                    <div class="terminal-body">
+                        [OK] Sinkronisasi blok hash #757049 berhasil<br>
+                        [INFO] Hashrate stable: 45.2 TH/s<br>
+                        [SUCCESS] Reward tertambah ke main balance.
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Tombol Upgrade -->
-        <button class="upgrade-banner" onclick="alert('Fitur upgrade VVIP akan segera tersedia!')">
-            👑 Akun Trial? Upgrade VVIP untuk Membuka Fitur Tarik Saldo →
-        </button>
     </div>
 
     <!-- WHATSAPP FLOAT BUTTON -->
@@ -581,11 +693,9 @@
             document.getElementById('userNav').style.display = 'flex';
             document.getElementById('navUserName').innerText = name;
             
-            // Sembunyikan Landing Page, Tampilkan Dashboard Mining
             document.getElementById('landingView').style.display = 'none';
             document.getElementById('dashboardView').style.display = 'block';
 
-            // Simulasi saldo bertambah otomatis tiap detik
             startRealtimeMining();
         }
 
@@ -608,13 +718,11 @@
             document.getElementById('guestNav').style.display = 'flex';
             document.getElementById('userNav').style.display = 'none';
             
-            // Kembali ke Landing Page
             document.getElementById('dashboardView').style.display = 'none';
             document.getElementById('landingView').style.display = 'block';
             alert('Anda telah keluar.');
         }
 
-        // Cek status saat halaman dimuat
         window.onload = function() {
             const savedUser = JSON.parse(localStorage.getItem('meaningmax_user'));
             const isLoggedIn = localStorage.getItem('isLoggedIn');
@@ -623,7 +731,6 @@
             }
         }
 
-        // Tutup modal jika klik di luar kotak
         window.onclick = function(event) {
             if (event.target == modal) {
                 closeModal();
