@@ -18,11 +18,6 @@
             overflow-x: hidden;
         }
 
-        /* Sembunyikan konten utama di awal untuk mencegah kedipan saat refresh */
-        .main-container {
-            display: none;
-        }
-
         /* Navbar Full Width */
         nav {
             display: flex;
@@ -690,7 +685,7 @@
     </nav>
 
     <!-- KONTEN UTAMA -->
-    <div class="main-container" id="appMainContainer">
+    <div class="main-container">
 
         <!-- 1. LANDING PAGE -->
         <div id="landingView">
@@ -1171,7 +1166,6 @@
         }
 
         function startRealtimeMining() {
-            // Bersihkan interval lama agar tidak menumpuk / berat saat refresh
             if(miningInterval) {
                 clearInterval(miningInterval);
                 miningInterval = null;
@@ -1289,8 +1283,6 @@
                 document.getElementById('dashboardView').style.display = 'none';
                 document.getElementById('landingView').style.display = 'block';
             }
-
-            document.getElementById('appMainContainer').style.display = 'block';
         }
 
         window.onclick = function(event) {
