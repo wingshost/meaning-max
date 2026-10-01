@@ -689,6 +689,7 @@
         }
 
         function showDashboard(name) {
+            closeModal(); // Pastikan modal tertutup
             document.getElementById('guestNav').style.display = 'none';
             document.getElementById('userNav').style.display = 'flex';
             document.getElementById('navUserName').innerText = name;
@@ -723,11 +724,17 @@
             alert('Anda telah keluar.');
         }
 
+        // Cek status saat halaman dimuat & pastikan modal tertutup
         window.onload = function() {
+            closeModal(); // Pastikan modal selalu tertutup saat halaman dimuat
             const savedUser = JSON.parse(localStorage.getItem('meaningmax_user'));
             const isLoggedIn = localStorage.getItem('isLoggedIn');
+            
             if(isLoggedIn === 'true' && savedUser) {
                 showDashboard(savedUser.name);
+            } else {
+                document.getElementById('dashboardView').style.display = 'none';
+                document.getElementById('landingView').style.display = 'block';
             }
         }
 
